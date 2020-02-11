@@ -6,9 +6,7 @@ Author: Ammar
 */
 require_once('form.php');
 require_once('widget.php');
-?>
 
-<?php
 add_action('admin_menu', 'my_plugin_menu');
 
 /** Step 1. */
@@ -28,6 +26,12 @@ function my_plugin_options()
     $myrows = $wpdb->get_results("SELECT * from komentar ");
 ?>
     <br><br>
+    <p>
+        <?php if (isset($_GET['id'])) {
+            // echo $_GET['id'];
+            $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
+        } ?>
+    </p>
     <table border="1" cellpadding="0" cellspacing="0">
         <tr>
             <th>Nama</th>
@@ -46,9 +50,14 @@ function my_plugin_options()
                 <td><?php echo $data->phone; ?></td>
                 <td><?php echo $data->testimonial; ?></td>
                 <td>
-                    <a href="#">Delete</a> |
-                    <a href="#">Update</a>
+                    <?php $id = $data->id;
+                    echo $id;
+                    ?>
+                    |
+                    <a>Update</a>
+                    <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id ?>">delete</a>
                 </td>
+                <!-- data terdelete setelah di refress -->
             </tr>
         <?php
         } ?>
