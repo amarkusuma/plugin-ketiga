@@ -4,6 +4,8 @@ Plugin Name: Admin
 Description: Membuat Halaman Admin
 Author: Ammar
 */
+require_once('form.php');
+require_once('widget.php');
 ?>
 
 <?php

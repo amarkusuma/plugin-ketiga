@@ -1,5 +1,4 @@
 <?php
-require_once('admin.php');
 
 function html_form_code()
 {
