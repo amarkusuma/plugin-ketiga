@@ -3,13 +3,7 @@
 // if (!isset($_SESSION['random'])) {
 //     $_SESSION['random'] = rand(2, 4);
 // }
-
-/*
-Plugin Name: Widget
-Description: costum Widget
-Author: Ammar
-*/
-
+require_once('admin.php');
 
 class testimonial_widget extends WP_Widget
 {
