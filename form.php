@@ -1,9 +1,5 @@
 <?php
-/*
-Plugin Name: Form Plugin
-Description: Membuat Form dengan costum Plugin
-Author: Ammar
-*/
+require_once('admin.php');
 
 function html_form_code()
 {
