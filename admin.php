@@ -23,14 +23,14 @@ function my_plugin_options()
     }
 
     global $wpdb;
+    if (isset($_GET['id'])) {
+        $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
+    }
+
     $myrows = $wpdb->get_results("SELECT * from komentar ");
 ?>
     <br><br>
     <p>
-        <?php if (isset($_GET['id'])) {
-            // echo $_GET['id'];
-            $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
-        } ?>
     </p>
     <table border="1" cellpadding="0" cellspacing="0">
         <tr>
@@ -50,17 +50,15 @@ function my_plugin_options()
                 <td><?php echo $data->phone; ?></td>
                 <td><?php echo $data->testimonial; ?></td>
                 <td>
-                    <?php $id = $data->id;
-                    echo $id;
-                    ?>
-                    |
-                    <a>Update</a>
+
+                    <a>Update</a> |
                     <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id ?>">delete</a>
                 </td>
                 <!-- data terdelete setelah di refress -->
             </tr>
         <?php
-        } ?>
+        }
+        ?>
 
     </table>
 
