@@ -15,6 +15,19 @@ function my_plugin_menu()
     add_options_page('My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', 'my_plugin_options');
 }
 
+function read_testimonial()
+{
+    global $wpdb;
+    return $wpdb->get_results("SELECT * from komentar ");
+}
+
+function delete_testimonial()
+{
+    global $wpdb;
+    return  $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
+}
+
+
 /** Step 3. */
 function my_plugin_options()
 {
@@ -22,12 +35,9 @@ function my_plugin_options()
         wp_die(__('You do not have sufficient permissions to access this page.'));
     }
 
-    global $wpdb;
     if (isset($_GET['id'])) {
-        $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
+        delete_testimonial();
     }
-
-    $myrows = $wpdb->get_results("SELECT * from komentar ");
 ?>
     <br><br>
     <p>
@@ -42,7 +52,7 @@ function my_plugin_options()
         </tr>
 
         <?php
-        foreach ($myrows as $data) {
+        foreach (read_testimonial() as $data) {
         ?>
             <tr>
                 <td><?php echo $data->name; ?></td>
@@ -50,18 +60,14 @@ function my_plugin_options()
                 <td><?php echo $data->phone; ?></td>
                 <td><?php echo $data->testimonial; ?></td>
                 <td>
-
                     <a>Update</a> |
                     <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id ?>">delete</a>
                 </td>
-                <!-- data terdelete setelah di refress -->
             </tr>
         <?php
         }
         ?>
-
     </table>
-
 <?php
 }
 ?>
