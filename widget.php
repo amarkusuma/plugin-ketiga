@@ -4,6 +4,7 @@
 //     $_SESSION['random'] = rand(2, 4);
 // }
 
+
 class testimonial_widget extends WP_Widget
 {
 
@@ -57,6 +58,7 @@ class testimonial_widget extends WP_Widget
         return $instance;
     }
 }
+
 add_action('widgets_init', function () {
     register_widget('testimonial_widget');
 });
