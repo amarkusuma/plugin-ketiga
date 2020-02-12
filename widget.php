@@ -4,7 +4,6 @@
 //     $_SESSION['random'] = rand(2, 4);
 // }
 
-
 class testimonial_widget extends WP_Widget
 {
 
