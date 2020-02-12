@@ -38,9 +38,9 @@ class Admin
             wp_die(__('You do not have sufficient permissions to access this page.'));
         }
 
-        $crud = new Admin();
+
         if (isset($_GET['id'])) {
-            $crud->delete_testimonial();
+            $this->delete_testimonial();
         }
 ?>
         <br><br>
@@ -56,7 +56,7 @@ class Admin
             </tr>
 
             <?php
-            foreach ($crud->read_testimonial() as $data) {
+            foreach ($this->read_testimonial() as $data) {
             ?>
                 <tr>
                     <td><?php echo $data->name; ?></td>
