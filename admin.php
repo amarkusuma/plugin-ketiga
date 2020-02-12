@@ -10,8 +10,6 @@ require_once('widget.php');
 $admin = new Admin();
 add_action('admin_menu', [$admin, 'my_plugin_menu']);
 
-/** Step 1. */
-
 class Admin
 {
 
