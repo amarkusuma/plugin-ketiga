@@ -14,19 +14,19 @@ class Form
         echo '<input type="hidden" name="blog_id" value="' . $blog_id . '" size="40" />';
 
         echo '<p>';
-        echo 'Nama  <br/>';
-        echo '<input type="text" name="nama" pattern="[a-zA-Z0-9 ]+" value="' . (isset($_POST["nama"]) ? esc_attr($_POST["nama"]) : '') . '" size="40" />';
+        echo 'Name  <br/>';
+        echo '<input type="text" name="input-name" pattern="[a-zA-Z0-9 ]+" value="' . (isset($_POST["input-name"]) ? esc_attr($_POST["input-name"]) : '') . '" size="40" />';
         echo '</p>';
         echo '<p>';
         echo 'Email <br/>';
-        echo '<input type="email" name="email" value="' . (isset($_POST["email"]) ? esc_attr($_POST["email"]) : '') . '" size="40" />';
+        echo '<input type="email" name="input-email" value="' . (isset($_POST["input-email"]) ? esc_attr($_POST["input-email"]) : '') . '" size="40" />';
         echo '</p>';
         echo 'Phone number <br/>';
-        echo '<input type="number" name="phone" value="' . (isset($_POST["phone"]) ? esc_attr($_POST["phone"]) : '') . '" size="40" />';
+        echo '<input type="number" name="input-phone" value="' . (isset($_POST["input-phone"]) ? esc_attr($_POST["input-phone"]) : '') . '" size="40" />';
         echo '</p>';
 
         echo 'Testimonial <br/>';
-        echo '<textarea rows="20" cols="35" name="testimonial">' . (isset($_POST["testimonial"]) ? esc_attr($_POST["testimonial"]) : '') . '</textarea>';
+        echo '<textarea rows="20" cols="35" name="input-testimonial">' . (isset($_POST["input-testimonial"]) ? esc_attr($_POST["input-testimonial"]) : '') . '</textarea>';
         echo '</p>';
         echo '<p><input type="submit" name="submit" value="Send"></p>';
         echo '</form>';
@@ -41,10 +41,10 @@ class Form
         if (isset($_POST['submit'])) {
             global $wpdb;
             $blog_id = $_POST['blog_id'];
-            $name = $_POST['nama'];
-            $email = $_POST['email'];
-            $phone = $_POST['phone'];
-            $testimonial = $_POST['testimonial'];
+            $name = $_POST['input-name'];
+            $email = $_POST['input-email'];
+            $phone = $_POST['input-phone'];
+            $testimonial = $_POST['input-testimonial'];
             $wpdb->insert(
                 'komentar',
                 array(

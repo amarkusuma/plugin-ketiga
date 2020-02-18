@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Admin
-Description: Membuat Halaman Admin
+Plugin Name: Testimonial 1
+Description: create testimonial 1
 Author: Ammar
 */
 require_once('form.php');
@@ -23,9 +23,13 @@ class Admin
     function delete_testimonial()
     {
         global $wpdb;
-        // global $blog_id;
+        global $blog_id;
+        $id = $_GET['id'];
+        $get_blogid = $_GET['blog_id'];
         // return  $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
-        return  $wpdb->query('DELETE from komentar where id=' . $_GET['id']);
+        if ($blog_id == $get_blogid) {
+            return  $wpdb->query("DELETE from komentar where id= $id AND blog_id=$blog_id");
+        }
     }
 
     function my_plugin_menu()
@@ -39,8 +43,8 @@ class Admin
             wp_die(__('You do not have sufficient permissions to access this page.'));
         }
 
-        global $blog_id;
-        if (isset($_GET['blog_id']) && $_GET['blog_id'] == $blog_id) {
+
+        if (isset($_GET['id']) && $_GET['blog_id']) {
             $this->delete_testimonial();
         }
 ?>
@@ -49,7 +53,8 @@ class Admin
         </p>
         <table border="1" cellpadding="0" cellspacing="0">
             <tr>
-                <th>Nama</th>
+
+                <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Testimonial</th>
@@ -60,13 +65,15 @@ class Admin
             foreach ($this->read_testimonial() as $data) {
             ?>
                 <tr>
+
                     <td><?php echo $data->name; ?></td>
                     <td><?php echo $data->email; ?></td>
                     <td><?php echo $data->phone; ?></td>
                     <td><?php echo $data->testimonial; ?></td>
                     <td>
                         <a>Update</a> |
-                        <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id . '&blog_id=' . $blog_id ?>">delete</a>
+                        <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id . '&blog_id=' . $data->blog_id ?>">delete</a>
+                        <!-- <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id ?>">delete</a> -->
                     </td>
                 </tr>
             <?php
