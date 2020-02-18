@@ -23,7 +23,7 @@ class Admin
     function delete_testimonial()
     {
         global $wpdb;
-        global $blog_id;
+        // global $blog_id;
         // return  $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
         return  $wpdb->query('DELETE from komentar where id=' . $_GET['id']);
     }
