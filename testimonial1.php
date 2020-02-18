@@ -4,8 +4,8 @@ Plugin Name: Testimonial 1
 Description: create testimonial 1
 Author: Ammar
 */
-require_once('form.php');
-require_once('widget.php');
+require_once('form-testimonial1.php');
+require_once('widget-testimonial1.php');
 
 $admin = new Admin();
 add_action('admin_menu', [$admin, 'my_plugin_menu']);
