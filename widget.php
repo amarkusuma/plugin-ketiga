@@ -30,7 +30,8 @@ class testimonial_widget extends WP_Widget
         global $wpdb;
         // $id = rand(2, 4);
         // $random = $_SESSION['random'];
-        $myrows = $wpdb->get_results("SELECT * from komentar ORDER BY rand() LIMIT 1");
+        global $blog_id;
+        $myrows = $wpdb->get_results("SELECT * from komentar where blog_id='$blog_id' ORDER BY rand() LIMIT 1 ");
         foreach ($myrows as $data) {
             echo __($data->testimonial, 'testimonial_widget');
         }

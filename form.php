@@ -9,7 +9,10 @@ class Form
 
     function html_form_code()
     {
+        global $blog_id;
         echo '<form action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
+        echo '<input type="hidden" name="blog_id" value="' . $blog_id . '" size="40" />';
+
         echo '<p>';
         echo 'Nama  <br/>';
         echo '<input type="text" name="nama" pattern="[a-zA-Z0-9 ]+" value="' . (isset($_POST["nama"]) ? esc_attr($_POST["nama"]) : '') . '" size="40" />';
@@ -37,6 +40,7 @@ class Form
     {
         if (isset($_POST['submit'])) {
             global $wpdb;
+            $blog_id = $_POST['blog_id'];
             $name = $_POST['nama'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
@@ -44,12 +48,14 @@ class Form
             $wpdb->insert(
                 'komentar',
                 array(
+                    'blog_id' => $blog_id,
                     'name' => $name,
                     'email' => $email,
                     'phone' => $phone,
                     'testimonial' => $testimonial
                 ),
                 array(
+                    '%d',
                     '%s',
                     '%s',
                     '%d',

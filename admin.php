@@ -16,13 +16,16 @@ class Admin
     function read_testimonial()
     {
         global $wpdb;
-        return $wpdb->get_results("SELECT * from komentar ");
+        global $blog_id;
+        return $wpdb->get_results("SELECT * from komentar where blog_id=" . $blog_id);
     }
 
     function delete_testimonial()
     {
         global $wpdb;
-        return  $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
+        global $blog_id;
+        // return  $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
+        return  $wpdb->query('DELETE from komentar where id=' . $_GET['id']);
     }
 
     function my_plugin_menu()
@@ -30,16 +33,14 @@ class Admin
         add_options_page('My Plugin Options', 'My Plugin', 'manage_options', 'my-unique-identifier', array($this, 'my_plugin_options'));
     }
 
-
-    /** Step 3. */
     function my_plugin_options()
     {
         if (!current_user_can('manage_options')) {
             wp_die(__('You do not have sufficient permissions to access this page.'));
         }
 
-
-        if (isset($_GET['id'])) {
+        global $blog_id;
+        if (isset($_GET['blog_id']) && $_GET['blog_id'] == $blog_id) {
             $this->delete_testimonial();
         }
 ?>
@@ -65,7 +66,7 @@ class Admin
                     <td><?php echo $data->testimonial; ?></td>
                     <td>
                         <a>Update</a> |
-                        <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id ?>">delete</a>
+                        <a href="<?php echo admin_url('options-general.php?page=my-unique-identifier') . '&id=' . $data->id . '&blog_id=' . $blog_id ?>">delete</a>
                     </td>
                 </tr>
             <?php
