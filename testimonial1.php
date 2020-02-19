@@ -20,13 +20,11 @@ class Admin
         return $wpdb->get_results("SELECT * from komentar where blog_id=" . $blog_id);
     }
 
-    function delete_testimonial()
+    function delete_testimonial($id, $get_blogid)
     {
         global $wpdb;
         global $blog_id;
-        $id = $_GET['id'];
-        $get_blogid = $_GET['blog_id'];
-        // return  $wpdb->delete('komentar', array('ID' =>  $_GET['id']));
+
         if ($blog_id == $get_blogid) {
             return  $wpdb->query("DELETE from komentar where id= $id AND blog_id=$blog_id");
         }
@@ -45,7 +43,9 @@ class Admin
 
 
         if (isset($_GET['id']) && $_GET['blog_id']) {
-            $this->delete_testimonial();
+            $id = $_GET['id'];
+            $blog_id = $_GET['blog_id'];
+            $this->delete_testimonial($id, $blog_id);
         }
 ?>
         <br><br>
@@ -62,7 +62,8 @@ class Admin
             </tr>
 
             <?php
-            foreach ($this->read_testimonial() as $data) {
+            $display_testimonial = $this->read_testimonial();
+            foreach ($display_testimonial as $data) {
             ?>
                 <tr>
 
